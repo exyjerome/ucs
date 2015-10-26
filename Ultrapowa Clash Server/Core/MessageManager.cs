@@ -59,12 +59,12 @@ namespace UCS.Core
                         Debugger.WriteLine("[R] " + p.GetMessageType() + " " + p.GetType().Name + player);
                         p.Decode();
                         p.Process(pl);
-                        //Debugger.WriteLine("finished processing of message " + p.GetType().Name + player);
+                        Debugger.WriteLine("[D] Finished processing of message " + p.GetType().Name + player);
                     }
                     catch(Exception ex)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Debugger.WriteLine("An exception occured during processing of message " + p.GetType().Name + player, ex);
+                        Debugger.WriteLine("[W] An exception occured during processing of message " + p.GetType().Name + player, ex);
                         Console.ResetColor();
                     }
                 }

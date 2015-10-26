@@ -12,44 +12,45 @@ using UCS.Network;
 
 namespace UCS.PacketProcessing
 {
-    class SystemMessageGameOpCommand : GameOpCommand
+    class SystemRestartMessageGameOpCommand : GameOpCommand
     {
         private string[] m_vArgs;
 
-        public SystemMessageGameOpCommand(string[] args)
+        public SystemRestartMessageGameOpCommand(string[] args)
         {
             m_vArgs = args;
-            SetRequiredAccountPrivileges(1);
+            SetRequiredAccountPrivileges(4);
         }
 
         public override void Execute(Level level)
         {
-            if(level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
+            if (level.GetAccountPrivileges() >= GetRequiredAccountPrivileges())
             {
-                if(m_vArgs.Length >= 1)
+                if (m_vArgs.Length >= 1)
                 {
-                    string message = string.Join(" ", m_vArgs.Skip(1));
                     var avatar = level.GetPlayerAvatar();
                     AllianceMailStreamEntry mail = new AllianceMailStreamEntry();
                     mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
-                    mail.SetSenderId(avatar.GetId());
-                    mail.SetSenderAvatarId(avatar.GetId());
-                    mail.SetSenderName(avatar.GetAvatarName());
+                    mail.SetSenderId(0);
+                    mail.SetSenderAvatarId(0);
+                    mail.SetSenderName("System Admin");
                     mail.SetIsNew(0);
                     mail.SetAllianceId(0);
                     mail.SetAllianceBadgeData(0);
-                    mail.SetAllianceName("Legendary Administrator");
-                    mail.SetMessage(message + "\nSended by Legendary Administrator");
-                    mail.SetSenderLevel(avatar.GetAvatarLevel());
-                    mail.SetSenderLeagueId(avatar.GetLeagueId());
+                    mail.SetAllianceName("System Manager");
+                    mail.SetMessage("System is restarting in a few moments");
+                    mail.SetSenderLevel(500);
+                    mail.SetSenderLeagueId(22);
 
                     foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
                     {
                         var p = new AvatarStreamEntryMessage(onlinePlayer.GetClient());
                         p.SetAvatarStreamEntry(mail);
                         PacketManager.ProcessOutgoingPacket(p);
+                        Console.WriteLine("issue");
                     }
-                }   
+                    System.Diagnostics.Process.Start(@"tools\ucs-restart.bat");
+                }
             }
             else
             {

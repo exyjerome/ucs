@@ -74,10 +74,10 @@ namespace UCS.PacketProcessing
             else
             {
                 Console.Write("\t");
-                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Unhandled");
-                Console.ResetColor();
                 Console.WriteLine(" Command " + cm.ToString() + " (ignored)");
+                Console.ResetColor();
                 return null;
             }
         }

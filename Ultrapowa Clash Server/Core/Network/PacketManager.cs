@@ -56,8 +56,9 @@ namespace UCS.Network
                 while (m_vIncomingPackets.TryDequeue(out p))
                 {
                     p.Client.Decrypt(p.GetData());
-                    //Console.WriteLine("R " + p.GetMessageType().ToString() + " (" + p.GetLength().ToString() + ")");
-                    Logger.WriteLine(p, "R");
+                    // Dev View
+                    Console.WriteLine("[R] " + p.GetMessageType().ToString() + " (" + p.GetLength().ToString() + ")");
+                    Logger.WriteLine(p, "[R]");
                     MessageManager.ProcessPacket(p);
                 }
             }
@@ -70,8 +71,8 @@ namespace UCS.Network
                 m_vOutgoingWaitHandle.WaitOne();
                 Message p;
                 while (m_vOutgoingPackets.TryDequeue(out p))
-                {  
-                    Logger.WriteLine(p, "S");
+                {
+                    Logger.WriteLine(p, "[S]");
                     if (p.GetMessageType() == 20000)
                     {
                         byte[] sessionKey = ((SessionKeyMessage)p).Key;

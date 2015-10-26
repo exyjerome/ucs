@@ -142,7 +142,6 @@ namespace UCS.Core
                 }
             }
             Console.WriteLine("done");
-            
         }
 
         public static void LoadGameFiles()

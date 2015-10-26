@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Configuration;
 using UCS.PacketProcessing;
 
 namespace UCS.Core
@@ -16,8 +18,10 @@ namespace UCS.Core
 
         public ApiManager()
         {
+            string hostName = Dns.GetHostName();
+            string IP = Dns.GetHostByName(hostName).AddressList[0].ToString();
             m_vListener = new HttpListener();
-            m_vListener.Prefixes.Add("http://localhost:1172/");
+            m_vListener.Prefixes.Add("http://localhost:1172/debug/");
             //m_vListener.AuthenticationSchemes = AuthenticationSchemes.Anonymous;
             m_vListener.Start();
             Action action = RunServer;
@@ -100,7 +104,10 @@ namespace UCS.Core
             }
             responseString += "</details>";
 
-            responseString += "</PRE></BODY></HTML>";
+            string hostName = Dns.GetHostName();
+            string LIP = Dns.GetHostByName(hostName).AddressList[0].ToString();
+            responseString += "<center><p>Current local ip: " + LIP + "</p></center>"; 
+            responseString += "<center><img src='https://d14.usercdn.com/i/02212/ea18nj5uxcll.png' style='width: 25%; height: 50%'></img></center></PRE></BODY></HTML>";
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
             // Get a response stream and write the response to it.
             response.ContentLength64 = buffer.Length;
@@ -119,7 +126,9 @@ namespace UCS.Core
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(ex.ToString());
+                Console.ResetColor();
             }
         }
 

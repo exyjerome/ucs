@@ -46,11 +46,11 @@ namespace UCS.PacketProcessing
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("[");
-                Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.Write("U");
-                Console.ResetColor();
                 Console.WriteLine("] " + packetType.ToString() + " Unhandled Message (ignored)");
+                Console.ResetColor();
                 return null;
             }
         }
