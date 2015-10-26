@@ -68,7 +68,7 @@ namespace UCS.PacketProcessing
                                     p.SetPlayerId(senderId);
                                     PacketManager.ProcessOutgoingPacket(p); // process message
                                                                             // warn
-                                    System.Threading.Thread.Sleep(4000);
+                                    System.Threading.Thread.Sleep(1000);
                                     GlobalChatLineMessage warnMessage = new GlobalChatLineMessage(Client);
                                     warnMessage.SetPlayerId(0L);
                                     warnMessage.SetChatMessage("You are using banned word.You will be kicked in 5 seconds");
@@ -76,7 +76,7 @@ namespace UCS.PacketProcessing
                                     warnMessage.SetLeagueId(22);
                                     PacketManager.ProcessOutgoingPacket(warnMessage); // process message
 
-                                    System.Threading.Thread.Sleep(4000);
+                                    System.Threading.Thread.Sleep(2000);
                                     var warnMessage1 = new GlobalChatLineMessage(Client);
                                     warnMessage1.SetPlayerId(0L);
                                     warnMessage1.SetPlayerName("System Admin");
