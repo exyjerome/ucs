@@ -16,7 +16,7 @@ namespace UCS
     {
         static void Main(string[] args)
         {
-            Console.Title = "Ultrapowa Clash Server v0.6.1.1 Cannary 10X";
+            Console.Title = "Ultrapowa Clash Server v0.6.1.1";
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(
 @"
@@ -31,7 +31,7 @@ Y88b. .d88P Y88b  d88P Y88b  d88P
         ");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("Ultrapowa Clash Server");
-            Console.WriteLine("version 0.6.1.1 Cannary 10X");
+            Console.WriteLine("version 0.6.1.1");
             Console.WriteLine("www.ultrapowa.com");
             Console.WriteLine("Get support by contacting Aidid on the forum");
             Console.WriteLine("");
