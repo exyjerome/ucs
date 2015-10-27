@@ -18,4 +18,4 @@ xcopy ucsdb.sql ucspackages\%1\tools
 xcopy ucsdb ucspackages\%1
 xcopy readme.txt ucspackages\%1
 md ucspackages\%1\filter
-break>"ucspackages\%1\filter.txt"
+break>"ucspackages\%1\filter\filter.txt"
