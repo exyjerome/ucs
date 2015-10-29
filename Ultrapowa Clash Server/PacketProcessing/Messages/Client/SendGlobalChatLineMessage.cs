@@ -55,13 +55,39 @@ namespace UCS.PacketProcessing
                             p.SetPlayerName(senderName + " #" + senderId);
                         else
                             p.SetPlayerName(senderName);
-                        p.SetChatMessage(this.Message);
-                        p.SetPlayerId(senderId);
-                        p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
-                        PacketManager.ProcessOutgoingPacket(p);
+                        {
+                            string fileName = @"filter\filter.txt";
+                            var lines = File.ReadAllLines(fileName)
+                                ;
+                            foreach (var line in lines)
+                            {
+                                if (Message.Contains(line))
+                                {
+                                    p.SetChatMessage("******");
+                                    p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
+                                    p.SetPlayerId(senderId);
+                                    PacketManager.ProcessOutgoingPacket(p);
+
+                                    var warnMessage = new GlobalChatLineMessage(Client);
+                                    warnMessage.SetPlayerId(0L);
+                                    warnMessage.SetChatMessage("Our system has detect that you using bad words.Please consider it before typing");
+                                    warnMessage.SetPlayerName("System Admin");
+                                    warnMessage.SetLeagueId(22);
+                                    PacketManager.ProcessOutgoingPacket(warnMessage); // process message
+                                }
+                                else
+                                {
+                                    p.SetChatMessage(this.Message);
+                                    p.SetPlayerId(senderId);
+                                    p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
+                                    PacketManager.ProcessOutgoingPacket(p);
+                                }
+                            }
+                        }
                     }
                 }
-            }    
+            }
         }
     }
 }
+
