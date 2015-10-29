@@ -39,7 +39,7 @@ namespace UCS.PacketProcessing
                     mail.SetAllianceId(0);
                     mail.SetAllianceBadgeData(0);
                     mail.SetAllianceName("Legendary Administrator");
-                    mail.SetMessage(message + "\nSended by Legendary Administrator");
+                    mail.SetMessage(message);
                     mail.SetSenderLevel(avatar.GetAvatarLevel());
                     mail.SetSenderLeagueId(avatar.GetLeagueId());
 

@@ -32,7 +32,7 @@ namespace UCS.Core
             {
                 lock (m_vSyncObject)
                 {
-                    m_vTextWriter.Write(DateTime.Now.ToString("yyyy/MM/dd/HH/mm/ss"));
+                    m_vTextWriter.Write(DateTime.Now.ToString("yyyyMMddHHmmss"));
                     m_vTextWriter.Write(";");
                     if (prefix != null)
                     {

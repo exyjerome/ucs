@@ -150,7 +150,7 @@ namespace UCS.Core
 
         public void Save(List<Level> avatars)
         {
-            Debugger.WriteLine("[M] Starting saving players from memory to database at " + DateTime.Now.ToString());
+            Debugger.WriteLine("Starting saving players from memory to database at " + DateTime.Now.ToString());
             try
             {
                 using (var context = new Database.ucsdbEntities(m_vConnectionString))
@@ -196,19 +196,17 @@ namespace UCS.Core
                     }
                     context.SaveChanges();
                 }
-                Debugger.WriteLine("[D] Finished saving players from memory to database at " + DateTime.Now.ToString());
+                Debugger.WriteLine("Finished saving players from memory to database at " + DateTime.Now.ToString());
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Debugger.WriteLine("[W] An exception occured during Save processing for avatars:", ex);
-                Console.ResetColor();
+                Debugger.WriteLine("An exception occured during Save processing for avatars:", ex);
             } 
         }
 
         public void Save(List<Alliance> alliances)
         {
-            Debugger.WriteLine("[M] Starting saving alliances from memory to database at " + DateTime.Now.ToString());
+            Debugger.WriteLine("Starting saving alliances from memory to database at " + DateTime.Now.ToString());
             try
             {
                 using (var context = new Database.ucsdbEntities(m_vConnectionString))
@@ -248,13 +246,11 @@ namespace UCS.Core
                     }
                     context.SaveChanges();
                 }
-                Debugger.WriteLine("[D] Finished saving alliances from memory to database at " + DateTime.Now.ToString());
+                Debugger.WriteLine("Finished saving alliances from memory to database at " + DateTime.Now.ToString());
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Debugger.WriteLine("[W] An exception occured during Save processing for alliances:", ex);
-                Console.ResetColor();
+                Debugger.WriteLine("An exception occured during Save processing for alliances:", ex);
             }
         }
     }

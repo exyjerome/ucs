@@ -51,7 +51,7 @@ namespace UCS.PacketProcessing
             alliance.SetAllianceType(m_vAllianceType);
             alliance.SetRequiredScore(m_vRequiredScore);
             alliance.SetAllianceBadgeData(m_vAllianceBadgeData);
-            alliance.SetAllianceOrigin(m_vAllianceOrigin);
+            //alliance.SetAllianceOrigin(m_vAllianceOrigin);
             alliance.SetWarFrequency(m_vWarFrequency);
 
             //Set player clan

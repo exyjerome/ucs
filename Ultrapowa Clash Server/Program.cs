@@ -16,7 +16,7 @@ namespace UCS
     {
         static void Main(string[] args)
         {
-            Console.Title = "Ultrapowa Clash Server v0.6.1.1";
+            Console.Title = "Ultrapowa Clash Server v0.6.1.2 Cannary 1X";
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(
 @"
@@ -29,16 +29,13 @@ namespace UCS
 Y88b. .d88P Y88b  d88P Y88b  d88P 
  ""Y88888P""   ""Y8888P""   ""Y8888P""  
         ");
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("Ultrapowa Clash Server");
-            Console.WriteLine("version 0.6.1.1");
+            Console.WriteLine("version 0.6.1.5 XV");
             Console.WriteLine("www.ultrapowa.com");
             Console.WriteLine("Get support by contacting Aidid on the forum");
             Console.WriteLine("");
             Console.WriteLine("Server starting...");
-            string hostName = Dns.GetHostName(); // Retrive the Name of HOST;
-            // Get the IP
-            string myIP = Dns.GetHostByName(hostName).AddressList[0].ToString();
+            Console.ResetColor();
             Gateway g = new Gateway();
             PacketManager ph = new PacketManager();
             MessageManager dp = new MessageManager();
@@ -47,24 +44,22 @@ Y88b. .d88P Y88b  d88P Y88b  d88P
             dp.Start();
             ph.Start();
             g.Start();
+            Debugger.SetLogLevel(Int32.Parse(ConfigurationManager.AppSettings["loggingLevel"]));
+            Logger.SetLogLevel(Int32.Parse(ConfigurationManager.AppSettings["loggingLevel"]));
+            string hostName = Dns.GetHostName();
+            string IP = Dns.GetHostByName(hostName).AddressList[0].ToString();
             if (Convert.ToBoolean(ConfigurationManager.AppSettings["apiManager"]))
             {
                 ApiManager api = new ApiManager();
-                Debugger.SetLogLevel(Int32.Parse(ConfigurationManager.AppSettings["loggingLevel"]));
-                Logger.SetLogLevel(Int32.Parse(ConfigurationManager.AppSettings["loggingLevel"]));
-                //Console.WriteLine("Server started, let's play Clash of Clans!");
-                Console.WriteLine("Server started on " + myIP + ":9339 and let's play Clash of Clans!");
-                Thread.Sleep(Timeout.Infinite);
+                Console.WriteLine("Server started on " + IP + ":9339 and let's play Clash of Clans!");
+
             }
             else
             {
                 Console.WriteLine("Api Manager disable...");
-                Debugger.SetLogLevel(Int32.Parse(ConfigurationManager.AppSettings["loggingLevel"]));
-                Logger.SetLogLevel(Int32.Parse(ConfigurationManager.AppSettings["loggingLevel"]));
-                //Console.WriteLine("Server started, let's play Clash of Clans!");
-                Console.WriteLine("Server started on " + myIP + ":9339 and let's play Clash of Clans!");
-                Thread.Sleep(Timeout.Infinite);
+                Console.WriteLine("Server started on " + IP + ":9339 and let's play Clash of Clans!");
             }
+            Thread.Sleep(Timeout.Infinite);
         }
     }
 }

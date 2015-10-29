@@ -47,15 +47,13 @@ namespace UCS.Network
             try
             {
                 Socket clientSocket = m_vServerSocket.EndAccept(result);
-                Debugger.WriteLine("[M] Client connected (" + ((IPEndPoint)clientSocket.RemoteEndPoint).Address.ToString() + ":" + ((IPEndPoint)clientSocket.RemoteEndPoint).Port.ToString() + ")");
+                Console.WriteLine("Client connected (" + ((IPEndPoint)clientSocket.RemoteEndPoint).Address.ToString() + ":" + ((IPEndPoint)clientSocket.RemoteEndPoint).Port.ToString() + ")");
                 ResourcesManager.AddClient(new Client(clientSocket));
                 SocketRead.Begin(clientSocket, OnReceive, OnReceiveError);
             }
             catch (System.Exception e)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Exception when accepting incoming connection: " + e);
-                Console.ResetColor();
             }
             try
             {
@@ -63,9 +61,7 @@ namespace UCS.Network
             }
             catch (System.Exception e)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Exception when starting new accept process: " + e);
-                Console.ResetColor();
             }
         }
 
@@ -76,7 +72,7 @@ namespace UCS.Network
             {
                 long socketHandle = read.Socket.Handle.ToInt64();
                 Client c = ResourcesManager.GetClient(socketHandle);
-                //Adds data to the client stream
+                    //Ajoute les données au stream client
                 c.DataStream.AddRange(data);
 
                 Message p;
@@ -93,10 +89,7 @@ namespace UCS.Network
 
         void OnReceiveError(SocketRead read, System.Exception exception)
         {
-            //Dev View
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Error received: " + exception);
-            Console.ResetColor();
+            //Console.WriteLine("Error received: " + exception);
         }
 
         void OnEndHostComplete(System.IAsyncResult result)
@@ -123,7 +116,6 @@ namespace UCS.Network
 
         public bool Host(int port)
         {
-            //Dev View
             //Console.WriteLine("Hosting on port " + port);
 
             m_vServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -136,9 +128,8 @@ namespace UCS.Network
             }
             catch (System.Exception e)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Exception when attempting to host (" + port + "): " + e);
-                Console.ResetColor();
+
                 m_vServerSocket = null;
 
                 return false;

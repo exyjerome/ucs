@@ -33,11 +33,11 @@ namespace UCS.Core
             if (ex != null)
                 content += ex.ToString();
             Console.WriteLine(content);
-            if (logLevel <= m_vLogLevel)
+            if(logLevel <= m_vLogLevel)
             {
                 lock (m_vSyncObject)
                 {
-                    m_vTextWriter.Write(DateTime.Now.ToString("yyyy/MM/dd/HH/mm/ss"));
+                    m_vTextWriter.Write(DateTime.Now.ToString("yyyyMMddHHmmss"));
                     m_vTextWriter.Write("\t");
                     m_vTextWriter.WriteLine(content);
                     if (ex != null)

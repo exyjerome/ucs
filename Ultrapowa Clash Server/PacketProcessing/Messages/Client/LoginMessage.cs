@@ -65,8 +65,7 @@ namespace UCS.PacketProcessing
                 br.ReadByte();//01
                 m_vSignature4 = br.ReadScString();
                 m_vClientSeed = br.ReadUInt32WithEndian();
-                Debugger.WriteLine("[M] Client with user id " + m_vAccountId + " accessing with " + m_vDevice);
-                if(GetMessageVersion() >=7 )//7.200
+                if(GetMessageVersion() >=7 )//7.156
                 {
                     br.ReadByte();
                     br.ReadUInt32WithEndian();
@@ -92,7 +91,7 @@ namespace UCS.PacketProcessing
                 {
                     var p = new LoginFailedMessage(this.Client);
                     p.SetErrorCode(8);
-                    p.SetUpdateURL("http://www.ultrapowa.com/");
+                    p.SetUpdateURL(ConfigurationManager.AppSettings["oldGameVersion"]);
                     PacketManager.ProcessOutgoingPacket(p);
                     return;
                 }
@@ -122,7 +121,7 @@ namespace UCS.PacketProcessing
                     p.SetErrorCode(7);
                     p.SetResourceFingerprintData(ObjectManager.FingerPrint.SaveToJson());
                     p.SetContentURL(ConfigurationManager.AppSettings["patchingServer"]);
-                    p.SetUpdateURL("http://www.ultrapowa.com/");
+                    p.SetUpdateURL(ConfigurationManager.AppSettings["oldGameVersion"]);
                     PacketManager.ProcessOutgoingPacket(p);
                     return;
                 }
@@ -130,8 +129,7 @@ namespace UCS.PacketProcessing
 
             this.Client.ClientSeed = m_vClientSeed;
             PacketManager.ProcessOutgoingPacket(new SessionKeyMessage(this.Client));
-            Debugger.WriteLine("[D] Retrieve Player Data for player " + m_vAccountId);
-            Console.ResetColor();
+            //Console.WriteLine("Debug: Retrieve Player Data for player " + auth.PlayerId.ToString());
             //New player
             if (level == null)
             {
@@ -155,7 +153,7 @@ namespace UCS.PacketProcessing
             loginOk.SetServerMajorVersion(m_vClientMajorVersion);
             loginOk.SetServerBuild(m_vClientBuild);
             loginOk.SetContentVersion(m_vClientContentVersion);
-            
+            loginOk.SetServerEnvironment("prod");
             loginOk.SetDaysSinceStartedPlaying(10);
             loginOk.SetServerTime(Math.Round((level.GetTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds * 1000).ToString());
             loginOk.SetAccountCreatedDate("1414003838000");

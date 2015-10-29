@@ -47,9 +47,7 @@ namespace UCS.PacketProcessing
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("[");
-                Console.Write("U");
-                Console.WriteLine("] " + packetType.ToString() + " Unhandled Message (ignored)");
+                Console.Write("[U] " + packetType.ToString() + " Unhandled Message (ignored)");
                 Console.ResetColor();
                 return null;
             }

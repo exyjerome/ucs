@@ -64,7 +64,7 @@ namespace UCS.PacketProcessing
                                     player += " (" + level.GetPlayerAvatar().GetId() + ", " + level.GetPlayerAvatar().GetAvatarName() + ")";
                                 Debugger.WriteLine("\t" + obj.GetType().Name + player);
                                 ((Command)obj).Execute(level);
-                                Debugger.WriteLine("[D] Finished processing of command " + obj.GetType().Name + player);
+                                //Debugger.WriteLine("finished processing of command " + obj.GetType().Name + player);
                             }
                             else
                                 break;
@@ -74,7 +74,6 @@ namespace UCS.PacketProcessing
             }
             catch (Exception ex)
             {
-                Console.ResetColor();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Debugger.WriteLine("Exception occurred during command processing." + ex.ToString());
                 Console.ResetColor();

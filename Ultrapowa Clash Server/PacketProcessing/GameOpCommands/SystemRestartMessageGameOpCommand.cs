@@ -47,7 +47,6 @@ namespace UCS.PacketProcessing
                         var p = new AvatarStreamEntryMessage(onlinePlayer.GetClient());
                         p.SetAvatarStreamEntry(mail);
                         PacketManager.ProcessOutgoingPacket(p);
-                        Console.WriteLine("issue");
                     }
                     System.Diagnostics.Process.Start(@"tools\ucs-restart.bat");
                 }
