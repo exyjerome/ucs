@@ -81,6 +81,7 @@ namespace UCS.PacketProcessing
             {
                 var p = new LoginFailedMessage(this.Client);
                 p.SetErrorCode(10);
+                p.RemainingTime(Convert.ToInt32(ConfigurationManager.AppSettings["maintenanceTimeLeft"]));
                 PacketManager.ProcessOutgoingPacket(p);
                 return;
             }
@@ -154,7 +155,7 @@ namespace UCS.PacketProcessing
             loginOk.SetServerMajorVersion(m_vClientMajorVersion);
             loginOk.SetServerBuild(m_vClientBuild);
             loginOk.SetContentVersion(m_vClientContentVersion);
-            loginOk.SetServerEnvironment("prod");
+            loginOk.SetServerEnvironment("state");
             loginOk.SetDaysSinceStartedPlaying(10);
             loginOk.SetServerTime(Math.Round((level.GetTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds * 1000).ToString());
             loginOk.SetAccountCreatedDate("1414003838000");

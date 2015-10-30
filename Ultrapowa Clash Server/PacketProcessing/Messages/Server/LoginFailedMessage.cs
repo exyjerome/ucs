@@ -18,6 +18,7 @@ namespace UCS.PacketProcessing
         private string m_vContentURL;//60
         private string m_vUpdateURL;//64
         private string m_vReason;//68
+        private int m_vRemainingTime;
         
         public LoginFailedMessage(Client client) : base(client)
         {
@@ -44,6 +45,7 @@ namespace UCS.PacketProcessing
             pack.AddString(m_vContentURL);
             pack.AddString(m_vUpdateURL);
             pack.AddString(m_vReason);
+            pack.AddInt32(m_vRemainingTime);
             pack.AddInt32(-1);
             pack.Add(0);
 
@@ -58,6 +60,11 @@ namespace UCS.PacketProcessing
         public void SetErrorCode(int code)
         {
             m_vErrorCode = code;
+        }
+
+        public void RemainingTime(int code)
+        {
+            m_vRemainingTime = code;
         }
 
         public void SetReason(string reason)

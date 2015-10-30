@@ -39,7 +39,7 @@ namespace UCS.Core
                     Console.WriteLine("Players Online : " + ResourcesManager.GetOnlinePlayers().Count);
                     Console.WriteLine("Starting Gems : " + Int32.Parse(ConfigurationManager.AppSettings["StartingGems"]));
                     Console.WriteLine("CoC Version : " + ConfigurationManager.AppSettings["ClientVersion"]);
-                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["DebugModeLocal"]))
+                    if (Convert.ToBoolean(ConfigurationManager.AppSettings["useCustomPatch"]))
                     {
                         string patchserver = "Yes";
                         Console.WriteLine("Patch : " + patchserver);
