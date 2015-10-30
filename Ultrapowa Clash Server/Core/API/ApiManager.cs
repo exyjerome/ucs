@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Configuration;
 using UCS.PacketProcessing;
 
 namespace UCS.Core
@@ -16,12 +17,18 @@ namespace UCS.Core
 
         public ApiManager()
         {
+            string hostName = Dns.GetHostName();
+            string IP = Dns.GetHostByName(hostName).AddressList[0].ToString();
+            string DebugPort = ConfigurationManager.AppSettings["DebugPort"];
             m_vListener = new HttpListener();
-            m_vListener.Prefixes.Add("http://localhost:1172/Debug/");
-            //m_vListener.AuthenticationSchemes = AuthenticationSchemes.Anonymous;
-            m_vListener.Start();
-            Action action = RunServer;
-            action.BeginInvoke(RunServerCallback, action);
+            {
+                string FullDebugMode = "http://localhost:" + DebugPort + "/Debug/";
+                m_vListener.Prefixes.Add("http://localhost:" + DebugPort + "/Debug/");
+                //m_vListener.AuthenticationSchemes = AuthenticationSchemes.Anonymous;
+                m_vListener.Start();
+                Action action = RunServer;
+                action.BeginInvoke(RunServerCallback, action);
+            }
         }
 
         private void StartListener(object data)
@@ -35,7 +42,8 @@ namespace UCS.Core
 
         private void RunServer()
         {
-            Console.WriteLine("Api Manager listening on http://localhost:1172/Debug/");
+            string DebugPort = ConfigurationManager.AppSettings["DebugPort"];
+            Console.WriteLine("API Manager started on http://localhost:" + DebugPort + "/Debug/");
             while (m_vListener.IsListening)
             {
                 IAsyncResult result = m_vListener.BeginGetContext(Handle, m_vListener);

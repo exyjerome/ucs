@@ -65,7 +65,8 @@ namespace UCS.PacketProcessing
                 br.ReadByte();//01
                 m_vSignature4 = br.ReadScString();
                 m_vClientSeed = br.ReadUInt32WithEndian();
-                if(GetMessageVersion() >=7 )//7.156
+                Debugger.WriteLine("[M] Client with user id " + m_vAccountId + " accessing with " + m_vDevice);
+                if (GetMessageVersion() >=7 )//7.200
                 {
                     br.ReadByte();
                     br.ReadUInt32WithEndian();
@@ -91,7 +92,7 @@ namespace UCS.PacketProcessing
                 {
                     var p = new LoginFailedMessage(this.Client);
                     p.SetErrorCode(8);
-                    p.SetUpdateURL(ConfigurationManager.AppSettings["oldGameVersion"]);
+                    p.SetUpdateURL(ConfigurationManager.AppSettings["oldClientVersion"]);
                     PacketManager.ProcessOutgoingPacket(p);
                     return;
                 }
@@ -121,7 +122,7 @@ namespace UCS.PacketProcessing
                     p.SetErrorCode(7);
                     p.SetResourceFingerprintData(ObjectManager.FingerPrint.SaveToJson());
                     p.SetContentURL(ConfigurationManager.AppSettings["patchingServer"]);
-                    p.SetUpdateURL(ConfigurationManager.AppSettings["oldGameVersion"]);
+                    p.SetUpdateURL(ConfigurationManager.AppSettings["oldClientVersion"]);
                     PacketManager.ProcessOutgoingPacket(p);
                     return;
                 }

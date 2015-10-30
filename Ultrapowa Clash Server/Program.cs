@@ -52,14 +52,20 @@ Y88b. .d88P Y88b  d88P Y88b  d88P
             {
                 ApiManager api = new ApiManager();
                 Console.WriteLine("Server started on " + IP + ":9339 and let's play Clash of Clans!");
-
             }
             else
             {
                 Console.WriteLine("Api Manager disable...");
                 Console.WriteLine("Server started on " + IP + ":9339 and let's play Clash of Clans!");
             }
-            Thread.Sleep(Timeout.Infinite);
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["debugMenu"]))
+            {
+                Menu debug = new Menu();
+            }
+            else
+            {
+                Thread.Sleep(Timeout.Infinite);
+            }
         }
     }
 }
