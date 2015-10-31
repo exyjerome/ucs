@@ -131,7 +131,7 @@ namespace UCS.PacketProcessing
 
             this.Client.ClientSeed = m_vClientSeed;
             PacketManager.ProcessOutgoingPacket(new SessionKeyMessage(this.Client));
-            //Console.WriteLine("Debug: Retrieve Player Data for player " + auth.PlayerId.ToString());
+            Console.WriteLine("[D] Retrieve Player Data for player " + m_vAccountId);
             //New player
             if (level == null)
             {

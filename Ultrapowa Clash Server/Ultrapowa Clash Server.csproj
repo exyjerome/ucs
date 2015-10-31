@@ -246,6 +246,7 @@
     <Compile Include="PacketProcessing\Commands\PlaceAttackerCommand.cs" />
     <Compile Include="PacketProcessing\Commands\RemoveUnitsCommand.cs" />
     <Compile Include="PacketProcessing\GameOpCommands\BanChatGameOpCommand.cs" />
+    <Compile Include="PacketProcessing\GameOpCommands\ServerStatusGameOpCommand.cs" />
     <Compile Include="PacketProcessing\GameOpCommands\SystemMessageGameOpCommand.cs" />
     <Compile Include="PacketProcessing\GameOpCommands\SystemRestartMessageGameOpCommand.cs" />
     <Compile Include="PacketProcessing\GameOpCommands\UnbanGameOpCommand.cs" />

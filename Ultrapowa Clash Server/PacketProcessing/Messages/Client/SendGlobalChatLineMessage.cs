@@ -30,9 +30,9 @@ namespace UCS.PacketProcessing
 
         public override void Process(Level level)
         {
-            if(Message.Length > 0)
+            if (Message.Length > 0)
             {
-                if(Message[0] == '/')
+                if (Message[0] == '/')
                 {
                     object obj = GameOpCommandFactory.Parse(Message);
                     if (obj != null)
@@ -48,46 +48,33 @@ namespace UCS.PacketProcessing
                 {
                     long senderId = level.GetPlayerAvatar().GetId();
                     string senderName = level.GetPlayerAvatar().GetAvatarName();
-                    foreach(var onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                    foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
                     {
                         var p = new GlobalChatLineMessage(onlinePlayer.GetClient());
-                        if(onlinePlayer.GetAccountPrivileges() > 0)
+                        if (onlinePlayer.GetAccountPrivileges() > 0)
                             p.SetPlayerName(senderName + " #" + senderId);
                         else
                             p.SetPlayerName(senderName);
-                        {
+                        /*{
                             string fileName = @"filter\filter.txt";
-                            var lines = File.ReadAllLines(fileName)
-                                ;
+                            var lines = File.ReadAllLines(fileName);
                             foreach (var line in lines)
                             {
                                 if (Message.Contains(line))
                                 {
                                     p.SetChatMessage("******");
-                                    p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
                                     p.SetPlayerId(senderId);
                                     PacketManager.ProcessOutgoingPacket(p);
-
-                                    var warnMessage = new GlobalChatLineMessage(Client);
-                                    warnMessage.SetPlayerId(0L);
-                                    warnMessage.SetChatMessage("Our system has detect that you using bad words.Please consider it before typing");
-                                    warnMessage.SetPlayerName("System Admin");
-                                    warnMessage.SetLeagueId(22);
-                                    PacketManager.ProcessOutgoingPacket(warnMessage); // process message
                                 }
                                 else
-                                {
-                                    p.SetChatMessage(this.Message);
-                                    p.SetPlayerId(senderId);
-                                    p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
-                                    PacketManager.ProcessOutgoingPacket(p);
-                                }
-                            }
-                        }
+                                {*/
+                        p.SetChatMessage(this.Message);
+                        p.SetPlayerId(senderId);
+                        p.SetLeagueId(level.GetPlayerAvatar().GetLeagueId());
+                        PacketManager.ProcessOutgoingPacket(p);
                     }
                 }
             }
         }
     }
 }
-

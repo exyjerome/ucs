@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Configuration;
 using UCS.PacketProcessing;
 using UCS.Logic;
 
@@ -32,7 +33,13 @@ namespace UCS.Core
             string content = text;
             if (ex != null)
                 content += ex.ToString();
-            Console.WriteLine(content);
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["consoleDebug"]))
+            {
+                Console.WriteLine(content);
+            }
+            else
+            {
+            }
             if(logLevel <= m_vLogLevel)
             {
                 lock (m_vSyncObject)
