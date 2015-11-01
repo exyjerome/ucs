@@ -97,6 +97,37 @@ namespace UCS.Core
                         Console.WriteLine("Maintance Mode : Disable");
                     }
                 }
+                else if(line == "/sysinfo")
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Server Status is now sent to all online players");
+                    AllianceMailStreamEntry mail = new AllianceMailStreamEntry();
+                    mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                    mail.SetSenderId(0);
+                    mail.SetSenderAvatarId(0);
+                    mail.SetSenderName("System Manager");
+                    mail.SetIsNew(0);
+                    mail.SetAllianceId(0);
+                    mail.SetAllianceBadgeData(0);
+                    mail.SetAllianceName("Legendary Administrator");
+                    mail.SetMessage("Latest Server Status:\nConnected Players:" + ResourcesManager.GetConnectedClients().Count + "\nIn Memory Alliances:" + ObjectManager.GetInMemoryAlliances().Count + "\nIn Memory Levels:" + ResourcesManager.GetInMemoryLevels().Count);
+                    mail.SetSenderLeagueId(22);
+                    mail.SetSenderLevel(300);
+
+                    foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                    {
+                        var p = new AvatarStreamEntryMessage(onlinePlayer.GetClient());
+                        var pm = new GlobalChatLineMessage(onlinePlayer.GetClient());
+                        pm.SetChatMessage("Our current Server Status is now sent at your mailbox!");
+                        pm.SetPlayerId(0);
+                        pm.SetLeagueId(22);
+                        pm.SetPlayerName("System Manager");
+                        p.SetAvatarStreamEntry(mail);
+                        PacketManager.ProcessOutgoingPacket(p);
+                        PacketManager.ProcessOutgoingPacket(pm);
+                    }
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
                 else if (line == "/help")
                 {
                     Console.WriteLine("");
@@ -118,6 +149,7 @@ namespace UCS.Core
                     Console.WriteLine("/help - This commands show a list of available commands.");
                     Console.WriteLine("");
                     Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("/sysinfo - This command will send the current Server Status to all online players.");
                 }
                 else
                 {
@@ -140,6 +172,7 @@ namespace UCS.Core
                     Console.WriteLine("/help - This commands show a list of available commands.");
                     Console.WriteLine("");
                     Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("/sysinfo - This command will send the current Server Status to all online Players.");
                 }
             }
         }
