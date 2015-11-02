@@ -40,7 +40,7 @@ namespace UCS.PacketProcessing
                     mail.SetAllianceId(0);
                     mail.SetAllianceBadgeData(0);
                     mail.SetAllianceName("Legendary Administrator");
-                    mail.SetMessage("Latest Server Status Status:\nConnected Players:" + ResourcesManager.GetConnectedClients().Count + "\nIn Memory Alliances:" + ObjectManager.GetInMemoryAlliances().Count + "\nIn Memory Levels:" + ResourcesManager.GetInMemoryLevels().Count);
+                    mail.SetMessage("Latest Server Status:\nConnected Players:" + ResourcesManager.GetConnectedClients().Count + "\nIn Memory Alliances:" + ObjectManager.GetInMemoryAlliances().Count + "\nIn Memory Levels:" + ResourcesManager.GetInMemoryLevels().Count);
                     mail.SetSenderLeagueId(22);
 
                     foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())

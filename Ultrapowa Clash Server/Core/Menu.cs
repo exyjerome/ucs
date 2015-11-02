@@ -30,6 +30,7 @@ namespace UCS.Core
                         p.SetCode(5);
                         PacketManager.ProcessOutgoingPacket(p);
                     }
+                    Console.WriteLine("Message Send");
                 }
                 else if (line == "/clear")
                 {
@@ -74,18 +75,19 @@ namespace UCS.Core
                     string IPM = Dns.GetHostByName(hostName).AddressList[0].ToString();
                     Console.WriteLine("Server IP : " + IPM + " on port 9339");
                     Console.WriteLine("Players Online : " + ResourcesManager.GetOnlinePlayers().Count);
+                    Console.WriteLine("Starting Gold : " + Int32.Parse(ConfigurationManager.AppSettings["StartingGold"]));
+                    Console.WriteLine("Starting Elixir : " + Int32.Parse(ConfigurationManager.AppSettings["StartingElixir"]));
+                    Console.WriteLine("Starting Dark Elixir : " + Int32.Parse(ConfigurationManager.AppSettings["StartingDarkElixir"]));
                     Console.WriteLine("Starting Gems : " + Int32.Parse(ConfigurationManager.AppSettings["StartingGems"]));
                     Console.WriteLine("CoC Version : " + ConfigurationManager.AppSettings["ClientVersion"]);
                     if (Convert.ToBoolean(ConfigurationManager.AppSettings["useCustomPatch"]))
                     {
-                        string patchserver = "Yes";
-                        Console.WriteLine("Patch : " + patchserver);
+                        Console.WriteLine("Patch : Active");
                         Console.WriteLine("Patching Server : " + ConfigurationManager.AppSettings["patchingServer"]);
                     }
                     else
                     {
-                        string patchserver = "No";
-                        Console.WriteLine("Patch : " + patchserver);
+                        Console.WriteLine("Patch : Disable");
                     }
                     if (Convert.ToBoolean(ConfigurationManager.AppSettings["maintenanceMode"]))
                     {
@@ -97,26 +99,59 @@ namespace UCS.Core
                         Console.WriteLine("Maintance Mode : Disable");
                     }
                 }
+                else if (line == "/sysinfo")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Server Status is now sent to all online players");
+                    AllianceMailStreamEntry mail = new AllianceMailStreamEntry();
+                    mail.SetId((int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds);
+                    mail.SetSenderId(0);
+                    mail.SetSenderAvatarId(0);
+                    mail.SetSenderName("System Manager");
+                    mail.SetIsNew(0);
+                    mail.SetAllianceId(0);
+                    mail.SetAllianceBadgeData(0);
+                    mail.SetAllianceName("Legendary Administrator");
+                    mail.SetMessage("Latest Server Status:\nConnected Players:" + ResourcesManager.GetConnectedClients().Count + "\nIn Memory Alliances:" + ObjectManager.GetInMemoryAlliances().Count + "\nIn Memory Levels:" + ResourcesManager.GetInMemoryLevels().Count);
+                    mail.SetSenderLeagueId(22);
+                    mail.SetSenderLevel(500);
+
+                    foreach (var onlinePlayer in ResourcesManager.GetOnlinePlayers())
+                    {
+                        var p = new AvatarStreamEntryMessage(onlinePlayer.GetClient());
+                        var pm = new GlobalChatLineMessage(onlinePlayer.GetClient());
+                        pm.SetChatMessage("Our current Server Status is now sent at your mailbox!");
+                        pm.SetPlayerId(0);
+                        pm.SetLeagueId(22);
+                        pm.SetPlayerName("System Manager");
+                        p.SetAvatarStreamEntry(mail);
+                        PacketManager.ProcessOutgoingPacket(p);
+                        PacketManager.ProcessOutgoingPacket(pm);
+                    }
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
                 else if (line == "/help")
                 {
                     Console.WriteLine("");
                     Console.WriteLine("Available commands :");
                     Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("/op - This commands set privileges to a specific user.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("/restart - This commands restart server and sending online player info about it.");
                     Console.WriteLine("");
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("/shutdown - This commands fully close the server without message.");
+                    Console.WriteLine("/shutdown - This commands fully close the server with message after five minutes.");
                     Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("/status - This commands show informations about the server.");
                     Console.WriteLine("");
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("/clear - Clean the emulator screen");
                     Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("/help - This commands show a list of available commands.");
                     Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("/sysinfo - This command will send the current Server Status to all online players.");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
@@ -124,21 +159,23 @@ namespace UCS.Core
                     Console.WriteLine("");
                     Console.WriteLine("Available commands :");
                     Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("/restart - This commands set privileges to a specific user.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("/restart - This commands restart server and sending online player info about it.");
                     Console.WriteLine("");
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("/shutdown - This commands fully close the server with message after five minutes.");
                     Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("/status - This commands show informations about the server.");
                     Console.WriteLine("");
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("/clear - Clean the emulator screen");
                     Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("/help - This commands show a list of available commands.");
                     Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("/sysinfo - This command will send the current Server Status to all online players.");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }

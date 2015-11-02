@@ -16,7 +16,7 @@ namespace UCS
     {
         static void Main(string[] args)
         {
-            Console.Title = "Ultrapowa Clash Server v0.6.1.5 Cannary 2 XV";
+            Console.Title = "Ultrapowa Clash Server v0.6.1.5 Cannary 3 XV";
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(
 @"
@@ -29,20 +29,8 @@ namespace UCS
 Y88b. .d88P Y88b  d88P Y88b  d88P 
  ""Y88888P""   ""Y8888P""   ""Y8888P""  
         ");
-            Console.WriteLine
-                (@"     _____          ___                  
-    /  /::\        /  /\          ___    
-   /  /:/\:\      /  /:/_        /__/\   
-  /  /:/  \:\    /  /:/ /\       \  \:\  
- /__/:/ \__\:|  /  /:/ /:/_       \  \:\ 
- \  \:\ /  /:/ /__/:/ /:/ /\  ___  \__\:\
-  \  \:\  /:/  \  \:\/:/ /:/ /__/\ |  |:|
-   \  \:\/:/    \  \::/ /:/  \  \:\|  |:|
-    \  \::/      \  \:\/:/    \  \:\__|:|
-     \__\/        \  \::/      \__\::::/ 
-                   \__\/           ~~~~  ");
             Console.WriteLine("Ultrapowa Clash Server");
-            Console.WriteLine("version 0.6.1.5 Cannary 2 XV");
+            Console.WriteLine("version 0.6.1.5 Cannary 3 XV");
             Console.WriteLine("www.ultrapowa.com");
             Console.WriteLine("Get support by contacting Aidid on the forum");
             Console.WriteLine("");
@@ -70,7 +58,7 @@ Y88b. .d88P Y88b  d88P Y88b  d88P
                 Console.WriteLine("Api Manager disable...");
                 Console.WriteLine("Server started on " + IP + ":9339 and let's play Clash of Clans!");
             }
-            if (Convert.ToBoolean(ConfigurationManager.AppSettings["debugMenu"]))
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["consoleCommand"]))
             {
                 Menu debug = new Menu();
             }

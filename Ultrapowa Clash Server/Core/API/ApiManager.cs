@@ -19,7 +19,7 @@ namespace UCS.Core
         {
             string hostName = Dns.GetHostName();
             string IP = Dns.GetHostByName(hostName).AddressList[0].ToString();
-            string DebugPort = ConfigurationManager.AppSettings["DebugPort"];
+            string DebugPort = ConfigurationManager.AppSettings["debugPort"];
             m_vListener = new HttpListener();
             {
                 string FullDebugMode = "http://localhost:" + DebugPort + "/Debug/";
@@ -42,7 +42,7 @@ namespace UCS.Core
 
         private void RunServer()
         {
-            string DebugPort = ConfigurationManager.AppSettings["DebugPort"];
+            string DebugPort = ConfigurationManager.AppSettings["debugPort"];
             Console.WriteLine("API Manager started on http://localhost:" + DebugPort + "/Debug/");
             while (m_vListener.IsListening)
             {
