@@ -30,7 +30,7 @@ namespace UCS.Core
                         p.SetCode(5);
                         PacketManager.ProcessOutgoingPacket(p);
                     }
-                    Console.WriteLine("Message Send");
+                    Console.WriteLine("Message has been send to the user");
                 }
                 else if (line == "/clear")
                 {
