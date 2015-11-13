@@ -19,7 +19,7 @@ namespace UCS.Core
 
         static Debugger()
         {
-            m_vTextWriter = TextWriter.Synchronized(File.AppendText("logs/debug_" + DateTime.Now.ToString("yyyyMMdd") + ".log"));
+            m_vTextWriter = TextWriter.Synchronized(File.AppendText("logs/debug.log"));
             m_vLogLevel = 1;
         }
 
